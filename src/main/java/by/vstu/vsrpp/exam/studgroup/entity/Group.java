@@ -11,18 +11,21 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
-@Table(name = "groups", schema = "gr")
+@Table(name = "groups")
 public class Group {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int Shifr;
+	public int shifr;
 
 	@Column(unique = true)
-	public String Nazvanie;
+	public String nazvanie;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "group")
+	@JsonBackReference
 	private List<Student> students;
 
 	public List<Student> getStudents() {
@@ -34,26 +37,26 @@ public class Group {
 	}
 
 	public int getShifr() {
-		return Shifr;
+		return shifr;
 	}
 
 	public void setShifr(int shifr) {
-		Shifr = shifr;
+		this.shifr = shifr;
 	}
 
 	public String getNazvanie() {
-		return Nazvanie;
+		return nazvanie;
 	}
 
 	public void setNazvanie(String nazvanie) {
-		Nazvanie = nazvanie;
+		this.nazvanie = nazvanie;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Group [name=");
-		builder.append(Nazvanie);
+		builder.append(nazvanie);
 		builder.append(", students=");
 		builder.append(students);
 		builder.append("]");

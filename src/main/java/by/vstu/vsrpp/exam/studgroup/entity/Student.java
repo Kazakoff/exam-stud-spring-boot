@@ -10,22 +10,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-/*
-  `Imya` char(30) NOT NULL,
-  `Otchestvo` char(30) NOT NULL,
-  `Gorod` char(30) NOT NULL,
-  `Adres` char(80) NOT NULL,
-  `Tel` char(30) NOT NULL,
-`Status` varchar(50), */
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "students", schema = "gr")
+@Table(name = "students")
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int NomerZachetki;
+	public int nomerZachetki;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonManagedReference
 	@JoinColumn(name = "ShifrGruppyi", referencedColumnName = "Shifr")
 	public Group group;
 
@@ -38,29 +33,29 @@ public class Student {
 	}
 
 	@Column
-	public String Familiya;
+	public String familiya;
 
 	public int getNomerZachetki() {
-		return NomerZachetki;
+		return nomerZachetki;
 	}
 
 	public void setNomerZachetki(int nomerZachetki) {
-		NomerZachetki = nomerZachetki;
+		this.nomerZachetki = nomerZachetki;
 	}
 
 	public String getFamiliya() {
-		return Familiya;
+		return familiya;
 	}
 
 	public void setFamiliya(String familiya) {
-		Familiya = familiya;
+		this.familiya = familiya;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Student [name=");
-		builder.append(Familiya);
+		builder.append(familiya);
 		builder.append("]");
 		return builder.toString();
 	}
