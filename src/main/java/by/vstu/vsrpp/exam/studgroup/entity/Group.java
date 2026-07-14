@@ -1,5 +1,6 @@
 package by.vstu.vsrpp.exam.studgroup.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,15 +15,28 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "groups")
+@Table(name = "gruppyi")
 public class Group {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int shifr;
+	@Column(name = "Shifr")
+	private int shifr;
 
-	@Column(unique = true)
-	public String nazvanie;
+	@Column(name = "Nazvanie", unique = true, length = 50, nullable = false)
+	private String nazvanie;
+
+	@Column(name = "DataFormir", nullable = false)
+	private LocalDate dataFormir;
+
+	@Column(name = "KodPlana", nullable = false)
+	private int kodPlana;
+
+	@Column(name = "Status", length = 50)
+	private String status;
+
+	@Column(name = "StatusDate")
+	private LocalDate statusDate;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "group")
 	@JsonBackReference
@@ -50,6 +64,38 @@ public class Group {
 
 	public void setNazvanie(String nazvanie) {
 		this.nazvanie = nazvanie;
+	}
+
+	public LocalDate getDataFormir() {
+		return dataFormir;
+	}
+
+	public void setDataFormir(LocalDate dataFormir) {
+		this.dataFormir = dataFormir;
+	}
+
+	public int getKodPlana() {
+		return kodPlana;
+	}
+
+	public void setKodPlana(int kodPlana) {
+		this.kodPlana = kodPlana;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public LocalDate getStatusDate() {
+		return statusDate;
+	}
+
+	public void setStatusDate(LocalDate statusDate) {
+		this.statusDate = statusDate;
 	}
 
 	@Override
