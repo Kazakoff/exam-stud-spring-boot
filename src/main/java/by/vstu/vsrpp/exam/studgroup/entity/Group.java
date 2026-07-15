@@ -14,8 +14,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import by.vstu.vsrpp.exam.studgroup.validation.ValidStudentCount;
+
 @Entity
 @Table(name = "gruppyi")
+@ValidStudentCount(min = 1, max = 30)
 public class Group {
 
 	@Id
