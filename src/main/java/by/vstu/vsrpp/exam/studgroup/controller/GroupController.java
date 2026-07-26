@@ -48,7 +48,7 @@ public class GroupController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{groupId}/students")
+    @PostMapping("add/{groupId}")
     public ResponseEntity<GroupResponse> addStudents(
             @PathVariable int groupId,
             @Valid @RequestBody AddStudentsRequest request) {

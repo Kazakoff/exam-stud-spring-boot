@@ -104,22 +104,8 @@ public class GroupServiceImpl implements GroupService {
         Group group = repository.findById(groupId)
                 .orElseThrow(() -> new IllegalArgumentException("Группа с id " + groupId + " не найдена"));
 
-        List<Student> newStudents = request.getStudents().stream()
-                .map(s -> {
-                    Student student = new Student();
-                    student.setFamiliya(s.getFamiliya());
-                    student.setImya(s.getImya());
-                    student.setOtchestvo(s.getOtchestvo());
-                    student.setNomerZachetki(s.getNomerZachetki());
-                    student.setGroup(group);
-                    return student;
-                })
-                .collect(Collectors.toList());
+    List<Student> newStudents = groupMapper.toEntityList(request.getStudents());
 
-        // Проверка согласованности count
-        if (request.getCount() != null && request.getCount() != newStudents.size()) {
-            throw new IllegalArgumentException("Поле 'count' не совпадает с размером списка");
-        }
 
         // Временное добавление для валидации
         List<Student> tempStudents = new ArrayList<>(group.getStudents() != null ? group.getStudents() : List.of());
@@ -132,7 +118,7 @@ public class GroupServiceImpl implements GroupService {
                 violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toList())
             );
         }
-
+        newStudents.forEach(student -> student.setGroup(group));
         studentRepository.saveAll(newStudents);
         Group saved = repository.save(group);
         return groupMapper.toResponse(saved);

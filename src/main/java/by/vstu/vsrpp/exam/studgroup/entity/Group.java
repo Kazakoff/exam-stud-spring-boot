@@ -18,7 +18,7 @@ import by.vstu.vsrpp.exam.studgroup.validation.ValidStudentCount;
 
 @Entity
 @Table(name = "gruppyi")
-@ValidStudentCount(min = 1, max = 30)
+@ValidStudentCount(min = 1, max = 3)
 public class Group {
 
 	@Id
